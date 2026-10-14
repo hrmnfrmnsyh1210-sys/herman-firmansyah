@@ -1,0 +1,153 @@
+/* =========================================================
+   Herman Firmansyah — Portfolio (global tokens & primitives)
+   Brush-poster style: navy + royal blue + yellow + cream,
+   brush headings, hand-drawn doodles and rounded panels.
+   ========================================================= */
+
+:root {
+  --bg: #071129;
+  --panel: #0c1938;
+  --panel-2: #122148;
+  --panel-3: #1a2c5c;
+  --border: rgba(178, 196, 255, 0.1);
+  --border-strong: rgba(178, 196, 255, 0.2);
+  --text: #f6f2e8;
+  --text-muted: #a8b3d1;
+  --text-subtle: #6d7aa3;
+
+  --accent: #ffc928;      /* yellow */
+  --accent-ink: #0a1430;
+  --brand: #2a55c9;       /* royal blue */
+  --brand-2: #5b86ff;
+  --blue: #3f74ff;
+  --yellow: #ffc928;
+  --cream: #f4efe3;
+  --navy: #0f1d4a;
+  --success: #4ade80;
+  --danger: #ff6b6b;
+
+  --shadow: 0 24px 60px -24px rgba(2, 6, 20, 0.85);
+  --radius-sm: 12px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --nav-h: 80px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --font: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --marker: 'Permanent Marker', 'Comic Sans MS', cursive;
+  --hand: 'Caveat', 'Comic Sans MS', cursive;
+  --script: 'Kaushan Script', 'Brush Script MT', cursive;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul, ol { list-style: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+.container { width: min(1200px, 100% - 32px); margin-inline: auto; }
+.mono { font-family: var(--mono); }
+.marker { font-family: var(--marker); font-weight: 400; letter-spacing: 0.01em; }
+.hand { font-family: var(--hand); }
+.script { font-family: var(--script); font-weight: 400; }
+.accent { color: var(--accent); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 28px; border-radius: 999px;
+  font-weight: 600; font-size: 0.95rem;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background-color 0.25s, border-color 0.25s, color 0.25s;
+}
+.btn--accent { background: var(--accent); color: var(--accent-ink); box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
+.btn--accent:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: 0 14px 36px -10px color-mix(in srgb, var(--accent) 65%, transparent); }
+.btn--outline { border: 2px solid var(--brand); color: var(--text); }
+.btn--outline:hover { background: var(--brand); transform: translateY(-3px) rotate(1deg); }
+.btn--block { width: 100%; }
+
+.text-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 600; font-size: 0.92rem; color: var(--accent);
+}
+.text-link__circle {
+  width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  border: 1.5px solid currentColor; transition: transform 0.3s var(--ease);
+}
+.text-link:hover .text-link__circle { transform: translateX(4px); }
+
+/* ---------- Panels (each section is a rounded card) ---------- */
+.page { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding-bottom: 18px; }
+.panel {
+  position: relative;
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 48px);
+}
+.panel__head { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.panel__title {
+  position: relative; display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--marker); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem); line-height: 1.1; letter-spacing: 0.01em;
+}
+.panel__title .doodle { color: var(--brand-2); }
+.panel__sub { color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin-top: 6px; }
+
+/* ---------- Tags ---------- */
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-family: var(--mono); font-size: 0.74rem; line-height: 1.5;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--panel-2); border: 1px solid var(--border); color: var(--text-muted);
+}
+
+/* ---------- Pose stickers (public/poses) ---------- */
+.pose { display: block; height: auto; max-width: none; pointer-events: none; user-select: none; filter: drop-shadow(0 14px 22px rgba(2, 6, 20, 0.55)); }
+
+/* ---------- Doodle helpers ---------- */
+.doodle { display: inline-block; flex-shrink: 0; pointer-events: none; }
+.wiggle { animation: wiggle 3.5s ease-in-out infinite; }
+.bob { animation: bob 4s ease-in-out infinite; }
+.spin-slow { animation: spin 14s linear infinite; }
+@keyframes wiggle { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+@keyframes bob { 50% { transform: translateY(-10px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- Card spotlight (driven by v-spotlight) ---------- */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 8%, transparent), transparent 45%);
+  opacity: 0; transition: opacity 0.35s;
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* ---------- Reveal on scroll (driven by v-reveal) ----------
+   Content is only hidden while <html> has .js (set by the inline head script
+   in nuxt.config.ts). If the app's JS never starts, that class is removed
+   after a short timeout so the page never stays blank. */
+.reveal { transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.js .reveal { opacity: 0; transform: translateY(26px); }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
