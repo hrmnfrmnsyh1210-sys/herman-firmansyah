@@ -12,6 +12,13 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // Admin panel is client-rendered (it talks to /api with the session cookie)
+  // and must not be indexed or prerendered.
+  routeRules: {
+    '/admin': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/admin/**': { ssr: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+  },
+
   app: {
     head: {
       htmlAttrs: { lang: 'id' },

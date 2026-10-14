@@ -1,0 +1,181 @@
+/* =========================================================
+   Admin panel — street-art layer
+   Wheat-pasted stickers on a night brick wall: thick ink
+   outlines, hard offset shadows, tape, spray splatter and
+   marker type. Builds on the tokens in main.css.
+   ========================================================= */
+
+.admin {
+  /* Chart/series colours — validated (dataviz validator, dark, #0c1938):
+     lightness band, chroma, CVD ΔE 15.6 (deutan), contrast ≥ 3:1. */
+  --income: #1aa6a6;
+  --expense: #ef5f3c;
+  --ink: #030817;
+  --paper: #f4efe3;
+  --wall: #081330;
+  --sticker-shadow: 5px 5px 0 var(--ink);
+  --tap: 44px;
+
+  position: relative;
+  min-height: 100vh;
+  color: var(--text);
+  background-color: var(--wall);
+  background-image:
+    /* spray splatter glows */
+    radial-gradient(420px 320px at 8% 4%, rgba(42, 85, 201, 0.35), transparent 70%),
+    radial-gradient(360px 300px at 96% 30%, rgba(255, 201, 40, 0.08), transparent 70%),
+    radial-gradient(380px 300px at 10% 85%, rgba(239, 95, 60, 0.08), transparent 70%),
+    /* brick wall */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='56'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.035' stroke-width='2'%3E%3Cpath d='M0 1h120M0 29h120M1 1v28M61 29v28'/%3E%3C/g%3E%3C/svg%3E"),
+    /* grain */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-attachment: fixed, fixed, fixed, scroll, scroll;
+}
+
+.admin .muted { color: var(--text-muted); }
+.admin .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Sticker panel ---------- */
+.sticker {
+  position: relative;
+  background: var(--panel);
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: var(--sticker-shadow);
+  outline: 1.5px solid rgba(244, 239, 227, 0.14);
+  outline-offset: -6px;
+  padding: 20px;
+}
+.sticker--tilt-l { transform: rotate(-0.5deg); }
+.sticker--tilt-r { transform: rotate(0.45deg); }
+@media (max-width: 640px) {
+  .sticker { padding: 16px; border-radius: 16px; }
+}
+
+/* Masking tape strip, jagged ends */
+.tape::before {
+  content: '';
+  position: absolute; z-index: 2;
+  top: -11px; left: 50%;
+  width: 78px; height: 22px;
+  background: rgba(255, 201, 40, 0.78);
+  transform: translateX(-50%) rotate(-4deg);
+  clip-path: polygon(0 12%, 6% 0, 12% 14%, 20% 2%, 30% 12%, 40% 0, 52% 12%, 62% 2%, 72% 14%, 82% 0, 92% 12%, 100% 4%, 100% 88%, 94% 100%, 84% 86%, 74% 100%, 62% 88%, 50% 100%, 40% 86%, 28% 100%, 18% 88%, 8% 100%, 0 90%);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.tape--left::before { left: 26px; transform: rotate(-8deg); }
+.tape--right::before { left: auto; right: 6px; transform: rotate(7deg); }
+
+/* ---------- Marker titles ---------- */
+.street-title {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--marker); font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.02em;
+  font-size: 1.25rem; line-height: 1.1;
+}
+.street-title .doodle { color: var(--accent); }
+.street-label {
+  display: inline-block;
+  font-family: var(--marker); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.03em;
+  padding: 3px 10px 2px;
+  background: var(--accent); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 6px;
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: rotate(-2deg);
+}
+
+/* ---------- Buttons ---------- */
+.sbtn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--tap); padding: 0 20px;
+  font-family: var(--marker); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--ink); background: var(--accent);
+  border: 2.5px solid var(--ink); border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s, background-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.sbtn:hover:not(:disabled) { transform: translate(-1px, -1px) rotate(-1deg); box-shadow: 5px 5px 0 var(--ink); }
+.sbtn:active:not(:disabled) { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.sbtn:disabled { opacity: 0.55; cursor: not-allowed; }
+.sbtn--paper { background: var(--paper); }
+.sbtn--ghost { background: var(--panel-2); color: var(--text); }
+.sbtn--danger { background: var(--expense); }
+.sbtn--block { width: 100%; }
+.sbtn--sm { min-height: 36px; padding: 0 14px; font-size: 0.85rem; border-width: 2px; box-shadow: 3px 3px 0 var(--ink); }
+
+.sicon {
+  display: inline-grid; place-items: center;
+  width: var(--tap); height: var(--tap); flex-shrink: 0;
+  border-radius: 12px; font-size: 1.2rem; line-height: 1;
+  color: var(--text); background: var(--panel-2);
+  border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.sicon:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+/* ---------- Form fields ---------- */
+.sfield { display: grid; gap: 6px; }
+.sfield__label { font-family: var(--marker); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-muted); }
+.sfield__label em { font-family: var(--font); font-style: normal; text-transform: none; color: var(--text-subtle); font-size: 0.8rem; }
+.sinput {
+  width: 100%; min-height: var(--tap);
+  font: inherit; font-size: 16px; /* ≥16px stops iOS zoom-on-focus */
+  color: var(--text); background: var(--panel-2);
+  border: 2px solid var(--ink); border-radius: 12px;
+  box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.25);
+  padding: 10px 14px; color-scheme: dark; resize: vertical;
+}
+.sinput::placeholder { color: var(--text-subtle); }
+.sinput:focus { outline: none; border-color: var(--accent); box-shadow: inset 3px 3px 0 rgba(0, 0, 0, 0.25), 0 0 0 3px rgba(255, 201, 40, 0.25); }
+
+/* ---------- Chips / tabs ---------- */
+.schip {
+  display: inline-flex; align-items: center; min-height: 34px; padding: 0 12px;
+  font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
+  background: var(--panel-2); border: 2px solid var(--ink); border-radius: 999px;
+  -webkit-tap-highlight-color: transparent;
+}
+.schip.on { background: var(--paper); color: var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+
+.salert {
+  font-size: 0.88rem; font-weight: 500;
+  padding: 10px 14px; border-radius: 12px;
+  background: rgba(239, 95, 60, 0.14); color: #ffb39f;
+  border: 2px dashed rgba(239, 95, 60, 0.6);
+}
+
+/* ---------- Series swatch (legend, chips) ---------- */
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 4px; border: 2px solid var(--ink); flex-shrink: 0; }
+.swatch--income { background: var(--income); }
+.swatch--expense { background: var(--expense); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.82rem; color: var(--text-muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---------- Chart tooltip ---------- */
+.ctip {
+  position: absolute; z-index: 5; pointer-events: none;
+  min-width: 170px; max-width: 200px;
+  background: var(--paper); color: var(--ink);
+  border: 2.5px solid var(--ink); border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 12px; font-size: 0.8rem; line-height: 1.5;
+}
+.ctip__title { font-family: var(--marker); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 4px; }
+.ctip__row { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.ctip__row span:first-child { display: inline-flex; align-items: center; gap: 6px; }
+.ctip__row strong { font-family: var(--mono); font-weight: 500; }
+.ctip__row--total { border-top: 1.5px dashed rgba(3, 8, 23, 0.35); margin-top: 4px; padding-top: 4px; }
+
+/* Data table fallback under each chart */
+.cdetails { margin-top: 12px; font-size: 0.82rem; }
+.cdetails summary { cursor: pointer; color: var(--text-subtle); width: max-content; min-height: 32px; display: flex; align-items: center; }
+.cdetails summary:hover { color: var(--text); }
+.ctable { width: 100%; border-collapse: collapse; margin-top: 6px; }
+.ctable th, .ctable td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.ctable th:first-child, .ctable td:first-child { text-align: left; }
+.ctable th { color: var(--text-subtle); font-weight: 600; }
+.ctable td { font-family: var(--mono); color: var(--text-muted); }
+.ctable-wrap { overflow-x: auto; }

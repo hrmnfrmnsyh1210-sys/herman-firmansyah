@@ -7,9 +7,11 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "admin:set": "node --env-file=.env scripts/set-admin.mjs"
   },
   "dependencies": {
+    "mysql2": "^3.24.6",
     "nuxt": "^3.21.11",
     "vue": "^3.5.0",
     "vue-router": "^4.5.0"
