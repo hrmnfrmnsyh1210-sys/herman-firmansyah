@@ -25,7 +25,7 @@ import { highlights, profile, services } from '~/data/portfolio'
         <p>
           Buat saya, software yang baik bukan cuma soal kode yang jalan, tapi juga <strong>mudah dirawat</strong>,
           <strong>cepat</strong>, dan <strong>enak dipakai</strong>. Latar belakang Informatika bikin saya paham
-          software, hardware, sampai jaringan.
+          alur sistem secara utuh — dari database, backend, sampai tampilan.
         </p>
 
         <ul class="stats">

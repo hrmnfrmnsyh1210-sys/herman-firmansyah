@@ -119,12 +119,7 @@ const spentRatio = computed(() => (s.value.income > 0 ? (s.value.expense / s.val
 
 const chartTab = ref<'trend' | 'daily'>('trend')
 const catTab = ref<TxType>('expense')
-const categoryBars = computed(() => {
-  const total = catTab.value === 'income' ? s.value.income : s.value.expense
-  return s.value.categories
-    .filter((c) => c.type === catTab.value)
-    .map((c) => ({ ...c, pct: total > 0 ? (c.total / total) * 100 : 0 }))
-})
+const categoryDonutData = computed(() => categoryDonut(catTab.value, s.value.categories, knownCategories.value))
 
 function exportCsv() {
   const esc = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`
@@ -248,16 +243,9 @@ function toast(text: string) {
               <button role="tab" class="schip" :class="{ on: catTab === 'income' }" :aria-selected="catTab === 'income'" @click="catTab = 'income'">Masuk</button>
             </div>
           </div>
-          <p v-if="!categoryBars.length" class="muted small">Belum ada data bulan ini.</p>
-          <ul v-else class="cats">
-            <li v-for="c in categoryBars" :key="c.category" class="cat">
-              <div class="cat__row">
-                <span class="cat__name">{{ c.category }}</span>
-                <span class="cat__val mono">{{ rupiah(c.total) }} <b>{{ c.pct.toFixed(0) }}%</b></span>
-              </div>
-              <div class="cat__track"><div class="cat__fill" :class="catTab" :style="{ width: `${Math.max(c.pct, 1.5)}%` }" /></div>
-            </li>
-          </ul>
+          <p v-if="!categoryDonutData.length" class="muted small">Belum ada data bulan ini.</p>
+          <AdminChartDonut v-else :segments="categoryDonutData"
+            :title="`${catTab === 'income' ? 'Pemasukan' : 'Pengeluaran'} per kategori, ${fmtMonth(month)}`" />
         </section>
 
         <!-- Transactions -->
@@ -400,17 +388,6 @@ function toast(text: string) {
 .box__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
 .box__sub { font-size: 0.82rem; color: var(--text-subtle); margin-bottom: 8px; }
 .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
-
-/* Categories */
-.cats { display: grid; gap: 12px; margin-top: 8px; }
-.cat__row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 5px; }
-.cat__name { font-weight: 600; font-size: 0.9rem; }
-.cat__val { font-size: 0.78rem; color: var(--text-muted); white-space: nowrap; }
-.cat__val b { color: var(--text); font-weight: 500; margin-left: 4px; }
-.cat__track { height: 14px; border: 2px solid var(--ink); border-radius: 99px; background: var(--panel-3); overflow: hidden; }
-.cat__fill { height: 100%; border-radius: inherit; transition: width 0.5s var(--ease); }
-.cat__fill.income { background: var(--income); }
-.cat__fill.expense { background: var(--expense); }
 
 /* List */
 .list-tools { display: flex; gap: 8px; align-items: center; }

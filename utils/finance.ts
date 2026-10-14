@@ -70,3 +70,36 @@ export function barPath(x: number, y: number, w: number, h: number, r = 4) {
   const rr = Math.min(r, w / 2, h)
   return `M${x},${y + h}V${y + rr}Q${x},${y} ${x + rr},${y}H${x + w - rr}Q${x + w},${y} ${x + w},${y + rr}V${y + h}Z`
 }
+
+/**
+ * Category donut colours (dark categorical slots, validated on #0c1938).
+ * A category's slot comes from its all-time rank, so it keeps its colour from
+ * month to month; ranks past 5 fold into "Lainnya". Slices are drawn in the
+ * fixed ring order below, which keeps every pair that may end up adjacent
+ * (even when a slot is missing that month) apart enough for colour-blind readers.
+ */
+export const CATEGORY_SLOTS = ['#3987e5', '#d95926', '#199e70', '#c98500', '#d55181']
+export const OTHER_COLOR = '#9aa0b8'
+const CATEGORY_RING: (number | 'other')[] = [0, 2, 1, 'other', 4, 3]
+
+export function categoryDonut(
+  type: TxType,
+  monthTotals: { type: TxType; category: string; total: number }[],
+  allTimeRanked: { type: TxType; category: string }[],
+) {
+  const top = allTimeRanked.filter((c) => c.type === type).slice(0, CATEGORY_SLOTS.length).map((c) => c.category)
+  const bySlot = new Map<number | 'other', { label: string; value: number }[]>()
+  for (const c of monthTotals) {
+    if (c.type !== type || c.total <= 0) continue
+    const slot = top.indexOf(c.category)
+    const key = slot === -1 ? 'other' : slot
+    bySlot.set(key, [...(bySlot.get(key) ?? []), { label: c.category, value: c.total }])
+  }
+  return CATEGORY_RING.filter((slot) => bySlot.has(slot)).map((slot) => {
+    const members = bySlot.get(slot)!
+    const value = members.reduce((a, m) => a + m.value, 0)
+    return slot === 'other'
+      ? { key: 'other', label: 'Lainnya', value, color: OTHER_COLOR, members }
+      : { key: members[0].label, label: members[0].label, value, color: CATEGORY_SLOTS[slot] }
+  })
+}

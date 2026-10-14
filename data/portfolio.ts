@@ -59,7 +59,7 @@ export const services = [
   { icon: 'plug', title: 'REST API & Integrasi', text: 'API yang rapi, terdokumentasi, dan mudah diintegrasikan.' },
   { icon: 'smartphone', title: 'Mobile Cross-platform', text: 'Aplikasi Android & iOS dari satu basis kode.' },
   { icon: 'database', title: 'Database & Query', text: 'Desain skema yang tepat dan optimasi query.' },
-  { icon: 'network', title: 'Jaringan & Linux', text: 'Paham server, jaringan komputer, dan deployment.' },
+  { icon: 'sparkles', title: 'Integrasi AI & Bot', text: 'Otomasi lewat bot Telegram/WhatsApp dan fitur berbasis AI.' },
   { icon: 'heart', title: 'Fokus pada Pengguna', text: 'Antarmuka yang nyaman dipakai, bukan sekadar berjalan.' },
 ]
 
@@ -82,9 +82,9 @@ export const skillGroups = [
     items: ['Docker', 'Linux', 'Nginx', 'GitHub Actions', 'AWS', 'Vercel'],
   },
   {
-    icon: 'network',
-    title: 'Jaringan & Hardware',
-    items: ['Jaringan Komputer', 'TCP/IP', 'Linux Server', 'Mikrotik', 'Troubleshooting PC'],
+    icon: 'plug',
+    title: 'Integrasi & Otomasi',
+    items: ['Bot Telegram', 'Bot WhatsApp', 'AI / LLM API', 'Google OAuth & SSO', 'Laporan Excel & PDF'],
   },
   {
     icon: 'pen-tool',
@@ -242,7 +242,7 @@ export const experience = [
     title: 'S1 Informatika',
     place: 'Universitas Bina Sarana Informatika (UBSI), Pontianak',
     points: [
-      'Mempelajari pemrograman, basis data, jaringan komputer, dan sistem hardware.',
+      'Mempelajari pemrograman, basis data, dan pengembangan perangkat lunak.',
       'Mengerjakan proyek dan tugas berbasis web serta aplikasi sebagai bagian dari masa studi.',
     ],
   },
