@@ -301,10 +301,11 @@ import { profile } from "~/data/portfolio";
 /* Art side: transparent character on a brush blob */
 .hero__art {
   position: relative;
-  max-width: min(400px, (100svh - var(--nav-h) - 70px) * 0.528);
-  width: 100%;
+  /* Width leaves 104px on the right for .steps (which sticks out 96px), and is
+     capped by the viewport height so the whole character fits on screen. */
+  width: min(100% - 104px, 400px, (100svh - var(--nav-h) - 70px) * 0.528);
   margin-left: auto;
-  margin-right: 70px;
+  margin-right: 104px;
 }
 .art__brush {
   position: absolute;
@@ -374,7 +375,7 @@ import { profile } from "~/data/portfolio";
 .steps {
   position: absolute;
   z-index: 3;
-  right: -110px;
+  right: -96px;
   bottom: 30%;
   display: grid;
   gap: 4px;
@@ -479,9 +480,6 @@ import { profile } from "~/data/portfolio";
 }
 
 @media (max-width: 1100px) {
-  .hero__art {
-    margin-right: 90px;
-  }
   .bubble {
     left: -14%;
   }
@@ -498,6 +496,7 @@ import { profile } from "~/data/portfolio";
     padding-top: 8px;
   }
   .hero__art {
+    width: 100%;
     max-width: 300px;
     margin: 10px auto 0;
   }
