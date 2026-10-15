@@ -10,5 +10,6 @@
       <SectionsContactSection />
     </main>
     <AppFooter />
+    <WhatsAppFloat />
   </div>
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { profile, socials } from '~/data/portfolio'
 
-const form = reactive({ name: '', email: '', subject: '', message: '' })
-const errors = reactive({ name: false, email: false, message: false })
+const form = reactive({ name: '', subject: '', message: '' })
+const errors = reactive({ name: false, message: false })
 const status = ref<{ type: 'ok' | 'err'; text: string } | null>(null)
 
 const contacts = [
@@ -11,24 +11,27 @@ const contacts = [
   { icon: 'pin', value: `${profile.location}` },
 ]
 
-// Opens the visitor's email client with the message pre-filled.
+// Opens WhatsApp (app on mobile, WhatsApp Web on desktop) with the message pre-filled.
 function submit() {
   errors.name = !form.name.trim()
-  errors.email = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
   errors.message = !form.message.trim()
 
-  if (errors.name || errors.email || errors.message) {
-    status.value = { type: 'err', text: 'Mohon lengkapi nama, email yang valid, dan pesan.' }
+  if (errors.name || errors.message) {
+    status.value = { type: 'err', text: 'Mohon isi nama dan pesan terlebih dahulu.' }
     return
   }
 
-  const body = `${form.message}\n\n— ${form.name} (${form.email})`
-  window.location.href =
-    `mailto:${profile.email}?subject=${encodeURIComponent(form.subject || 'Halo Herman!')}` +
-    `&body=${encodeURIComponent(body)}`
+  const subject = form.subject.trim()
+  const text = [
+    `Halo Herman! Saya *${form.name.trim()}*.`,
+    ...(subject ? [`*Subjek:* ${subject}`] : []),
+    '',
+    form.message.trim(),
+  ].join('\n')
+  window.open(`${profile.whatsapp.url}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
 
-  status.value = { type: 'ok', text: 'Terima kasih! Aplikasi email Anda akan terbuka untuk mengirim pesan.' }
-  Object.assign(form, { name: '', email: '', subject: '', message: '' })
+  status.value = { type: 'ok', text: 'WhatsApp terbuka — tinggal tekan kirim di sana.' }
+  Object.assign(form, { name: '', subject: '', message: '' })
 }
 </script>
 
@@ -45,7 +48,7 @@ function submit() {
           </span>
         </h2>
         <p class="contact__sub">
-          Terbuka untuk magang, freelance, maupun kolaborasi proyek. Kirim pesan dan saya balas secepatnya.
+          Terbuka untuk magang, freelance, maupun kolaborasi proyek. Kirim pesan lewat WhatsApp dan saya balas secepatnya.
         </p>
 
         <ul class="contact__list">
@@ -75,16 +78,9 @@ function submit() {
       </div>
 
       <form class="form" novalidate @submit.prevent="submit">
-        <AppDoodle name="heart" :size="34" class="form__heart wiggle" />
-        <div class="form__row">
-          <div class="field" :class="{ 'has-error': errors.name }">
-            <label for="name">Nama</label>
-            <input id="name" v-model="form.name" type="text" placeholder="Nama lengkap" autocomplete="name" required />
-          </div>
-          <div class="field" :class="{ 'has-error': errors.email }">
-            <label for="email">Email</label>
-            <input id="email" v-model="form.email" type="email" placeholder="email@contoh.com" autocomplete="email" required />
-          </div>
+        <div class="field" :class="{ 'has-error': errors.name }">
+          <label for="name">Nama</label>
+          <input id="name" v-model="form.name" type="text" placeholder="Nama lengkap" autocomplete="name" required />
         </div>
         <div class="field">
           <label for="subject">Subjek</label>
@@ -95,7 +91,7 @@ function submit() {
           <textarea id="message" v-model="form.message" rows="4" placeholder="Ceritakan kebutuhan Anda..." required />
         </div>
         <button type="submit" class="btn btn--accent btn--block">
-          Kirim Pesan <AppIcon name="send" :size="17" />
+          Kirim via WhatsApp <AppIcon name="send" :size="17" />
         </button>
         <p class="form__status" :class="status?.type" role="status">
           <template v-if="status">
@@ -135,8 +131,6 @@ function submit() {
   position: relative; display: grid; gap: 14px;
   padding: 26px; border-radius: var(--radius); background: var(--panel-2); border: 1px solid var(--border);
 }
-.form__heart { position: absolute; top: -16px; right: 22px; color: var(--yellow); }
-.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .field label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; }
 .field input, .field textarea {
   width: 100%; padding: 12px 15px; border-radius: 12px;
@@ -158,6 +152,5 @@ function submit() {
   /* In normal flow under the socials so it never covers the contact details. */
   .contact__pose { position: static; width: 120px; margin: 18px 0 -10px auto; }
   .form { padding: 20px; }
-  .form__row { grid-template-columns: 1fr; }
 }
 </style>

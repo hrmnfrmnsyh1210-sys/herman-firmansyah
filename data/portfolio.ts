@@ -134,6 +134,28 @@ export const projects: {
   links: { label: string; url: string }[]
 }[] = [
   {
+    title: 'Pivot — Pemulihan Finansial & Karier',
+    description:
+      'Membantu fresh graduate, korban PHK, dan orang yang terjerat pinjol menghitung Target Income dari biaya hidup & utang, lalu memandu lima langkah: pemetaan skill gap, roadmap belajar 14–30 hari, CV ATS dan lowongan yang sesuai, hingga micro-gig. Data utang diproses sepenuhnya di perangkat, dilengkapi asisten AI.',
+    category: 'platform',
+    icon: 'rocket',
+    image: '/projects/pivot.webp',
+    colors: ['#c81e1e', '#ffc928'],
+    stack: ['Nuxt', 'Tailwind CSS', 'AI Assistant', 'Google OAuth', 'Vercel'],
+    links: [{ label: 'Kunjungi Situs', url: 'https://pivot-id.vercel.app/' }],
+  },
+  {
+    title: 'Absensi QR — SMP Islam Bina 45',
+    description:
+      'Sistem absensi digital berbasis QR: siswa menampilkan kartu QR pribadi untuk dipindai guru, absensi tercatat per mata pelajaran, rekap otomatis ke Excel & PDF, dan orang tua bisa memantau kehadiran anak tanpa perlu akun.',
+    category: 'platform',
+    icon: 'check',
+    image: '/projects/absensi-bina45.webp',
+    colors: ['#16a34a', '#2dd4bf'],
+    stack: ['React', 'Vite', 'QR Scanner', 'Excel & PDF', 'Vercel'],
+    links: [{ label: 'Kunjungi Situs', url: 'https://absensi-bina-45.vercel.app/' }],
+  },
+  {
     title: 'SISPER — Platform Rekrutmen Berbasis AI',
     description:
       'Platform rekrutmen dengan screening CV otomatis berbasis AI: menganalisis skill, pengalaman, dan pendidikan pelamar lalu merangking kandidat untuk HR. Pelamar dapat melacak status lamaran secara real-time.',
