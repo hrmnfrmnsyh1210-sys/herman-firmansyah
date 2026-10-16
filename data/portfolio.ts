@@ -146,6 +146,17 @@ export const projects: {
     links: [{ label: 'Lihat di GitHub', url: 'https://github.com/hrmnfrmnsyh1210-sys/kyo-agent' }],
   },
   {
+    title: 'Dompet Manis — Pencatat Keuangan Pribadi',
+    description:
+      'Aplikasi pencatatan keuangan pribadi dengan tampilan manis dan ramah: catat pemasukan & pengeluaran per kategori yang bisa diatur sendiri, pantau saldo dan arus kas di dashboard, cari & filter transaksi per bulan, lalu unduh laporan bulanan ke PDF atau Excel lengkap dengan rekap per kategori. Mendukung pendaftaran akun dan manajemen pengguna.',
+    category: 'platform',
+    icon: 'wallet',
+    image: '/projects/dompetmanis.webp',
+    colors: ['#e8638f', '#ffc928'],
+    stack: ['Nuxt', 'Laporan PDF & Excel', 'Multi-user', 'Vercel'],
+    links: [{ label: 'Kunjungi Situs', url: 'https://dompetmanis.vercel.app/login' }],
+  },
+  {
     title: 'Pivot — Pemulihan Finansial & Karier',
     description:
       'Membantu fresh graduate, korban PHK, dan orang yang terjerat pinjol menghitung Target Income dari biaya hidup & utang, lalu memandu lima langkah: pemetaan skill gap, roadmap belajar 14–30 hari, CV ATS dan lowongan yang sesuai, hingga micro-gig. Data utang diproses sepenuhnya di perangkat, dilengkapi asisten AI.',
