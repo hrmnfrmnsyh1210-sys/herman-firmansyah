@@ -157,6 +157,17 @@ export const projects: {
     links: [{ label: 'Kunjungi Situs', url: 'https://dompetmanis.vercel.app/login' }],
   },
   {
+    title: 'PMB Cerdas — SMP Islam Tazkiyah',
+    description:
+      'Website sekolah sekaligus sistem Penerimaan Murid Baru (PMB) online: pendaftaran dan cek hasil seleksi secara real-time, rekomendasi beasiswa otomatis dengan metode SAW (Simple Additive Weighting), dan asisten AI 24/7 untuk menjawab pertanyaan calon siswa. Dilengkapi profil sekolah, visi-misi, program unggulan, fasilitas, guru, prestasi, jadwal, dan pengumuman.',
+    category: 'platform',
+    icon: 'graduation',
+    image: '/projects/smptazkiyah.webp',
+    colors: ['#047857', '#ffc928'],
+    stack: ['Laravel', 'PHP 8.3', 'Metode SAW', 'AI Chatbot', 'Vercel'],
+    links: [{ label: 'Kunjungi Situs', url: 'https://www.smptazkiyah.sch.id/' }],
+  },
+  {
     title: 'Pivot — Pemulihan Finansial & Karier',
     description:
       'Membantu fresh graduate, korban PHK, dan orang yang terjerat pinjol menghitung Target Income dari biaya hidup & utang, lalu memandu lima langkah: pemetaan skill gap, roadmap belajar 14–30 hari, CV ATS dan lowongan yang sesuai, hingga micro-gig. Data utang diproses sepenuhnya di perangkat, dilengkapi asisten AI.',
