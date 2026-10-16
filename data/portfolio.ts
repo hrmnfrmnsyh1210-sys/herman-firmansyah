@@ -111,13 +111,14 @@ export const skillTiles = [
   { icon: 'pen-tool', name: 'UI/UX Design', color: '#ffc928' },
 ]
 
-export type ProjectCategory = 'gov' | 'platform' | 'business'
+export type ProjectCategory = 'gov' | 'platform' | 'business' | 'tool'
 
 export const projectFilters: { value: 'all' | ProjectCategory; label: string }[] = [
   { value: 'all', label: 'Semua' },
   { value: 'gov', label: 'Pemerintahan' },
   { value: 'platform', label: 'Platform / SaaS' },
   { value: 'business', label: 'Bisnis' },
+  { value: 'tool', label: 'Tools & Open Source' },
 ]
 
 // Proyek nyata. Thumbnail = screenshot situs di public/projects/.
@@ -133,6 +134,17 @@ export const projects: {
   stack: string[]
   links: { label: string; url: string }[]
 }[] = [
+  {
+    title: 'Kyo Agent — Coding Agent CLI Berbasis LLM',
+    description:
+      'Coding agent di terminal ala Claude Code dengan LLM pilihan sendiri: satu klien untuk semua provider OpenAI-compatible (OpenAI, Claude, Gemini, Groq, DeepSeek, OpenRouter, hingga Ollama lokal). Agent bisa membaca, mencari, mengedit file, dan menjalankan perintah dengan konfirmasi diff, dibatasi aman di folder kerja, serta hemat token lewat pemangkasan konteks otomatis. Tanpa dependency, cukup Node.js.',
+    category: 'tool',
+    icon: 'code',
+    image: '/projects/kyo-agent.webp',
+    colors: ['#7c5cff', '#ffc928'],
+    stack: ['Node.js', 'JavaScript', 'LLM Tool Calling', 'CLI', 'Open Source'],
+    links: [{ label: 'Lihat di GitHub', url: 'https://github.com/hrmnfrmnsyh1210-sys/kyo-agent' }],
+  },
   {
     title: 'Pivot — Pemulihan Finansial & Karier',
     description:
