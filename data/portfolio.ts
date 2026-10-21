@@ -168,6 +168,17 @@ export const projects: {
     links: [{ label: 'Kunjungi Situs', url: 'https://www.smptazkiyah.sch.id/' }],
   },
   {
+    title: 'Heyfit — Website Gym & Membership',
+    description:
+      'Website untuk pusat kebugaran Heyfit Pontianak: pendaftaran member dengan paket bulanan hingga tahunan, trial 7 hari, perpanjangan member online tanpa antre di front desk, jadwal kelas Yoga, Pilates, HIIT, dan Zumba, serta halaman fasilitas dan galeri.',
+    category: 'business',
+    icon: 'heart',
+    image: '/projects/heyfit.webp',
+    colors: ['#0e7490', '#22d3ee'],
+    stack: ['Nuxt', 'Tailwind CSS', 'Membership Online', 'Vercel'],
+    links: [{ label: 'Kunjungi Situs', url: 'https://heyfitness-pontianak.vercel.app/' }],
+  },
+  {
     title: 'Pivot — Pemulihan Finansial & Karier',
     description:
       'Membantu fresh graduate, korban PHK, dan orang yang terjerat pinjol menghitung Target Income dari biaya hidup & utang, lalu memandu lima langkah: pemetaan skill gap, roadmap belajar 14–30 hari, CV ATS dan lowongan yang sesuai, hingga micro-gig. Data utang diproses sepenuhnya di perangkat, dilengkapi asisten AI.',

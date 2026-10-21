@@ -17,7 +17,11 @@ export default defineNuxtPlugin((nuxtApp) => {
           observer!.unobserve(entry.target)
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      // threshold must stay 0: a ratio threshold can never be met by a section
+      // taller than the viewport divided by that ratio (e.g. the project grid on
+      // a phone is ~6500px, and 12% of it is taller than an iPhone screen), which
+      // left it invisible forever. The negative bottom margin keeps the effect.
+      { threshold: 0, rootMargin: '0px 0px -12% 0px' },
     ))
 
   nuxtApp.vueApp.directive<HTMLElement, number | undefined>('reveal', {
